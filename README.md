@@ -23,23 +23,24 @@ All datasets were uploaded to a Databricks **volume** (`/Volumes/workspace/defau
 The notebook implements the following pipeline steps:
 
 1. **Data Ingestion:** Load CSVs into PySpark DataFrames with safe schema inference.
-2. **Data Cleaning & Transformation:**  
+3. **Data Cleaning & Transformation:**  
    - Cast numeric columns safely to double (`budget`, `revenue`, `popularity`, `vote_average`, `runtime`).  
    - Parse release dates safely with `try_to_date()` and extract `release_year`.  
    - Count genres per movie and create derived features.
-3. **Filtering:** Apply early filters (`release_year >= 2010`, `vote_average > 7`) for performance optimization.
-4. **Joins:** Merge `movies`, `credits`, and `keywords` datasets on `id`.
-5. **Aggregations:** Group by `release_year` or genre with `avg`, `count` functions.
-6. **SQL Queries:**  
+4. **Filtering:** Apply early filters (`release_year >= 2010`, `vote_average > 7`) for performance optimization.
+   
+5. **Joins:** Merge `movies`, `credits`, and `keywords` datasets on `id`.
+6. **Aggregations:** Group by `release_year` or genre with `avg`, `count` functions.
+7. **SQL Queries:**  
    - Top 10 highest-rated movies since 2015.  
    - Average rating by release year.
-7. **Performance Optimisation:**  
+8. **Performance Optimisation:**  
    - `.explain()` used to check execution plans.  
    - `.cache()` applied for repeated actions.  
    - Column pruning and filter pushdown optimizations applied.
-8. **Writing Results:** Save processed results to **Parquet files** for reuse.
-9. **Lazy vs Eager Evaluation:** Demonstrate differences between transformations and actions.
-10. **MLlib Demo (Optional):** Linear regression predicting movie revenue from budget, popularity, runtime, and vote_average.
+9. **Writing Results:** Save processed results to **Parquet files** for reuse.
+10. **Lazy vs Eager Evaluation:** Demonstrate differences between transformations and actions.
+11. **MLlib Demo (Optional):** Linear regression predicting movie revenue from budget, popularity, runtime, and vote_average.
 
 ---
 
@@ -49,8 +50,9 @@ The notebook implements the following pipeline steps:
 
 - Spark optimized transformations using **lazy evaluation**, combining filters and joins before execution.  
 - Filters (`release_year`, `vote_average`) were pushed down to minimize I/O.  
-- Joins were executed efficiently using **broadcast joins** where applicable.  
-- Caching the joined dataset reduced computation time for repeated actions.
+- Joins were executed efficiently using **broadcast joins** where applicable.
+<img width="677" height="361" alt="performance analysis" src="https://github.com/user-attachments/assets/fee6856f-e88d-4c18-9a5c-cbebf1709172" />
+
 
 **Screenshots included:**
 1. Query execution plan using `.explain(extended=True)`  
@@ -71,15 +73,19 @@ The notebook implements the following pipeline steps:
 ## Screenshots
 
 1. **Query Execution Plan**  
-   ![Execution Plan](screenshots/execution_plan.png)  
+ <img width="376" height="396" alt="lazy eval" src="https://github.com/user-attachments/assets/80966068-43d2-4f10-9cf1-c914b67f42be" />
 
 2. **Successful Pipeline Execution**  
-   ![Pipeline Success](screenshots/pipeline_success.png)  
+  <img width="838" height="398" alt="lazy_eval 2" src="https://github.com/user-attachments/assets/a5e2c338-1a39-4921-84c0-38e872b33b4c" />
+  <img width="381" height="334" alt="lazy eval 3" src="https://github.com/user-attachments/assets/082c6c70-f415-417f-884e-a91504991066" />
 
 3. **Query Details View Showing Optimizations**  
-   ![Query Details](screenshots/query_details.png)  
+<img width="573" height="364" alt="sql q1" src="https://github.com/user-attachments/assets/60c4fca1-08a2-4df5-9134-2fc432b8b483" />
+<img width="668" height="365" alt="sql q2" src="https://github.com/user-attachments/assets/8e74d919-2da6-4489-892c-48d9f0ed573a" />
+<img width="674" height="349" alt="action" src="https://github.com/user-attachments/assets/632bd02c-a78b-40c4-b444-f0c50bfddd68" />
 
-> *Note: Place the actual screenshots in a `screenshots/` folder in the repo.*
+4. **ML Model**  
+<img width="527" height="191" alt="ml model" src="https://github.com/user-attachments/assets/512d695d-949a-42c3-8f0a-f7d1b3cd5e43" />
 
 ---
 
