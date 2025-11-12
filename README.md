@@ -56,20 +56,24 @@ The notebook implements the following pipeline steps:
 8. **Performance Optimisation:**  
    - `.explain()` used to check execution plans.   
    - Column pruning and filter pushdown optimizations applied.
+
+   <img width="677" height="361" alt="performance analysis" src="https://github.com/user-attachments/assets/fee6856f-e88d-4c18-9a5c-cbebf1709172" />
      
 9. **Writing Results:** Save processed results to **Parquet files** for reuse.
 
-10. <img width="670" height="363" alt="output location" src="https://github.com/user-attachments/assets/f3601ac8-8c5a-432b-ad41-525987028262" />
-    <img width="453" height="214" alt="query on ouput loc" src="https://github.com/user-attachments/assets/36ac7d56-93bf-4a93-842b-0e6e9ee799bb" />
+   <img width="670" height="363" alt="output location" src="https://github.com/user-attachments/assets/f3601ac8-8c5a-432b-ad41-525987028262" />
+   <img width="453" height="214" alt="query on ouput loc" src="https://github.com/user-attachments/assets/36ac7d56-93bf-4a93-842b-0e6e9ee799bb" />
 
 
 11. **Lazy vs Eager Evaluation:** Demonstrate differences between transformations and actions.
+
    <img width="376" height="396" alt="lazy eval" src="https://github.com/user-attachments/assets/59458558-9ef3-43f2-9917-53c06252f498" />
    <img width="838" height="398" alt="lazy_eval 2" src="https://github.com/user-attachments/assets/a57b060d-eae8-4ea1-bf14-f0f4b0a31904" />
    <img width="381" height="334" alt="lazy eval 3" src="https://github.com/user-attachments/assets/5e377a0d-3562-42c1-8220-f141766a8701" />
 
 
-12. **MLlib Demo (Optional):** Linear regression predicting movie revenue from budget, popularity, runtime, and vote_average.
+13. **MLlib Demo (Optional):** Linear regression predicting movie revenue from budget, popularity, runtime, and vote_average.
+
    <img width="527" height="191" alt="ml model" src="https://github.com/user-attachments/assets/a2225475-0098-497e-aa15-a725aab6b915" />
 
 ---
@@ -81,8 +85,6 @@ The notebook implements the following pipeline steps:
 - Spark optimized transformations using **lazy evaluation**, combining filters and joins before execution.  
 - Filters (`release_year`, `vote_average`) were pushed down to minimize I/O.  
 - Joins were executed efficiently using **broadcast joins** where applicable.
-<img width="677" height="361" alt="performance analysis" src="https://github.com/user-attachments/assets/fee6856f-e88d-4c18-9a5c-cbebf1709172" />
-
 
 ---
 
