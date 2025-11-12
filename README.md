@@ -1,6 +1,6 @@
 # Movies Data Pipeline with PySpark on Databricks
 
-This repository contains a **PySpark data processing pipeline** implemented in Databricks, processing large movie datasets (1GB+) to demonstrate distributed processing, transformations, joins, aggregations, SQL queries, caching, and optional ML analysis.
+This repository contains a **PySpark data processing pipeline** implemented in Databricks, which processes large movie datasets (1 GB+) to demonstrate distributed processing, transformations, joins, aggregations, SQL queries, caching, and optional ML analysis.
 
 ---
 
@@ -23,37 +23,44 @@ All datasets were uploaded to a Databricks **volume** (`/Volumes/workspace/defau
 The notebook implements the following pipeline steps:
 
 1. **Data Ingestion:** Load CSVs into PySpark DataFrames with safe schema inference.
+
    <img width="471" height="306" alt="image" src="https://github.com/user-attachments/assets/5ab79f88-1ea2-4beb-9f73-dbbadef12295" />
 
-2. **Data Cleaning & Transformation:**  
+3. **Data Cleaning & Transformation:**  
    - Cast numeric columns safely to double (`budget`, `revenue`, `popularity`, `vote_average`, `runtime`).  
    - Parse release dates safely with `try_to_date()` and extract `release_year`.  
    - Count genres per movie and create derived features.
+   
    <img width="548" height="357" alt="image" src="https://github.com/user-attachments/assets/1913fc89-a1cc-47c9-ad61-d9f0ad32edc0" />
    <img width="523" height="130" alt="image" src="https://github.com/user-attachments/assets/5edbbe17-187e-4f73-af83-1c85249edecd" />
 
-3. **Filtering:** Apply early filters (`release_year >= 2010`, `vote_average > 7`) for performance optimization.
+4. **Filtering:** Apply early filters (`release_year >= 2010`, `vote_average > 7`) for performance optimization.
+
    <img width="581" height="209" alt="image" src="https://github.com/user-attachments/assets/cd5a232b-ecd6-48cc-aa88-2a964131091a" />
 
-4. **Joins:** Merge `movies`, `credits`, and `keywords` datasets on `id`.                                                                                                      <img width="540" height="206" alt="image" src="https://github.com/user-attachments/assets/2bf7d24f-dbfe-4065-b859-e508a5dd7ec5" />
+5. **Joins:** Merge `movies`, `credits`, and `keywords` datasets on `id`.
 
-5. **Aggregations:** Group by `release_year` or genre with `avg`, `count` functions.
+   <img width="540" height="206" alt="image" src="https://github.com/user-attachments/assets/2bf7d24f-dbfe-4065-b859-e508a5dd7ec5" />
+
+6. **Aggregations:** Group by `release_year` or genre with `avg`, `count` functions.
+
    <img width="533" height="305" alt="image" src="https://github.com/user-attachments/assets/e7b00f5c-1049-41dc-a563-d3ab0b1e1428" />
 
-6. **SQL Queries:**  
+7. **SQL Queries:**  
    - Top 10 highest-rated movies since 2015.  
    - Average rating by release year.
+   
    <img width="573" height="364" alt="sql q1" src="https://github.com/user-attachments/assets/60c4fca1-08a2-4df5-9134-2fc432b8b483" />
    <img width="668" height="365" alt="sql q2" src="https://github.com/user-attachments/assets/8e74d919-2da6-4489-892c-48d9f0ed573a" />
    
-7. **Performance Optimisation:**  
+8. **Performance Optimisation:**  
    - `.explain()` used to check execution plans.   
    - Column pruning and filter pushdown optimizations applied.
-8. **Writing Results:** Save processed results to **Parquet files** for reuse.                                                                                                 <img width="670" height="363" alt="output location" src="https://github.com/user-attachments/assets/f3601ac8-8c5a-432b-ad41-525987028262" />
+9. **Writing Results:** Save processed results to **Parquet files** for reuse.                                                                                                 <img width="670" height="363" alt="output location" src="https://github.com/user-attachments/assets/f3601ac8-8c5a-432b-ad41-525987028262" />
    <img width="453" height="214" alt="query on ouput loc" src="https://github.com/user-attachments/assets/36ac7d56-93bf-4a93-842b-0e6e9ee799bb" />
 
 
-9. **Lazy vs Eager Evaluation:** Demonstrate differences between transformations and actions.
+10. **Lazy vs Eager Evaluation:** Demonstrate differences between transformations and actions.
    <img width="376" height="396" alt="lazy eval" src="https://github.com/user-attachments/assets/59458558-9ef3-43f2-9917-53c06252f498" />
    <img width="838" height="398" alt="lazy_eval 2" src="https://github.com/user-attachments/assets/a57b060d-eae8-4ea1-bf14-f0f4b0a31904" />
    <img width="381" height="334" alt="lazy eval 3" src="https://github.com/user-attachments/assets/5e377a0d-3562-42c1-8220-f141766a8701" />
@@ -73,11 +80,6 @@ The notebook implements the following pipeline steps:
 - Joins were executed efficiently using **broadcast joins** where applicable.
 <img width="677" height="361" alt="performance analysis" src="https://github.com/user-attachments/assets/fee6856f-e88d-4c18-9a5c-cbebf1709172" />
 
-
-**Screenshots included:**
-1. Query execution plan using `.explain(extended=True)`  
-2. Spark UI Query Details showing stages, shuffles, and optimized execution  
-3. Successful pipeline execution confirming all transformations, filters, and Parquet writes  
 
 ---
 
