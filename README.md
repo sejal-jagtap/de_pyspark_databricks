@@ -23,24 +23,44 @@ All datasets were uploaded to a Databricks **volume** (`/Volumes/workspace/defau
 The notebook implements the following pipeline steps:
 
 1. **Data Ingestion:** Load CSVs into PySpark DataFrames with safe schema inference.
-3. **Data Cleaning & Transformation:**  
+   <img width="471" height="306" alt="image" src="https://github.com/user-attachments/assets/5ab79f88-1ea2-4beb-9f73-dbbadef12295" />
+
+2. **Data Cleaning & Transformation:**  
    - Cast numeric columns safely to double (`budget`, `revenue`, `popularity`, `vote_average`, `runtime`).  
    - Parse release dates safely with `try_to_date()` and extract `release_year`.  
    - Count genres per movie and create derived features.
-4. **Filtering:** Apply early filters (`release_year >= 2010`, `vote_average > 7`) for performance optimization.
-   
-5. **Joins:** Merge `movies`, `credits`, and `keywords` datasets on `id`.
-6. **Aggregations:** Group by `release_year` or genre with `avg`, `count` functions.
-7. **SQL Queries:**  
+   <img width="548" height="357" alt="image" src="https://github.com/user-attachments/assets/1913fc89-a1cc-47c9-ad61-d9f0ad32edc0" />
+   <img width="523" height="130" alt="image" src="https://github.com/user-attachments/assets/5edbbe17-187e-4f73-af83-1c85249edecd" />
+
+3. **Filtering:** Apply early filters (`release_year >= 2010`, `vote_average > 7`) for performance optimization.
+   <img width="581" height="209" alt="image" src="https://github.com/user-attachments/assets/cd5a232b-ecd6-48cc-aa88-2a964131091a" />
+
+4. **Joins:** Merge `movies`, `credits`, and `keywords` datasets on `id`.                                                                                                      <img width="540" height="206" alt="image" src="https://github.com/user-attachments/assets/2bf7d24f-dbfe-4065-b859-e508a5dd7ec5" />
+
+5. **Aggregations:** Group by `release_year` or genre with `avg`, `count` functions.
+   <img width="533" height="305" alt="image" src="https://github.com/user-attachments/assets/e7b00f5c-1049-41dc-a563-d3ab0b1e1428" />
+
+6. **SQL Queries:**  
    - Top 10 highest-rated movies since 2015.  
    - Average rating by release year.
-8. **Performance Optimisation:**  
-   - `.explain()` used to check execution plans.  
-   - `.cache()` applied for repeated actions.  
+   <img width="573" height="364" alt="sql q1" src="https://github.com/user-attachments/assets/60c4fca1-08a2-4df5-9134-2fc432b8b483" />
+   <img width="668" height="365" alt="sql q2" src="https://github.com/user-attachments/assets/8e74d919-2da6-4489-892c-48d9f0ed573a" />
+   
+7. **Performance Optimisation:**  
+   - `.explain()` used to check execution plans.   
    - Column pruning and filter pushdown optimizations applied.
-9. **Writing Results:** Save processed results to **Parquet files** for reuse.
-10. **Lazy vs Eager Evaluation:** Demonstrate differences between transformations and actions.
+8. **Writing Results:** Save processed results to **Parquet files** for reuse.                                                                                                 <img width="670" height="363" alt="output location" src="https://github.com/user-attachments/assets/f3601ac8-8c5a-432b-ad41-525987028262" />
+   <img width="453" height="214" alt="query on ouput loc" src="https://github.com/user-attachments/assets/36ac7d56-93bf-4a93-842b-0e6e9ee799bb" />
+
+
+9. **Lazy vs Eager Evaluation:** Demonstrate differences between transformations and actions.
+   <img width="376" height="396" alt="lazy eval" src="https://github.com/user-attachments/assets/59458558-9ef3-43f2-9917-53c06252f498" />
+   <img width="838" height="398" alt="lazy_eval 2" src="https://github.com/user-attachments/assets/a57b060d-eae8-4ea1-bf14-f0f4b0a31904" />
+   <img width="381" height="334" alt="lazy eval 3" src="https://github.com/user-attachments/assets/5e377a0d-3562-42c1-8220-f141766a8701" />
+
+
 11. **MLlib Demo (Optional):** Linear regression predicting movie revenue from budget, popularity, runtime, and vote_average.
+   <img width="527" height="191" alt="ml model" src="https://github.com/user-attachments/assets/a2225475-0098-497e-aa15-a725aab6b915" />
 
 ---
 
@@ -67,25 +87,6 @@ The notebook implements the following pipeline steps:
 - **Genre Analysis:** Certain genres, like Adventure and Action, consistently have higher average ratings.  
 - **Yearly Trends:** Average movie ratings have slightly increased over the years 2010–2023, indicating improved audience reception.  
 - **ML Insights:** A simple linear regression model shows that `budget` and `popularity` are moderately predictive of revenue, while `runtime` and `vote_average` are weaker predictors.  
-
----
-
-## Screenshots
-
-1. **Query Execution Plan**  
- <img width="376" height="396" alt="lazy eval" src="https://github.com/user-attachments/assets/80966068-43d2-4f10-9cf1-c914b67f42be" />
-
-2. **Successful Pipeline Execution**  
-  <img width="838" height="398" alt="lazy_eval 2" src="https://github.com/user-attachments/assets/a5e2c338-1a39-4921-84c0-38e872b33b4c" />
-  <img width="381" height="334" alt="lazy eval 3" src="https://github.com/user-attachments/assets/082c6c70-f415-417f-884e-a91504991066" />
-
-3. **Query Details View Showing Optimizations**  
-<img width="573" height="364" alt="sql q1" src="https://github.com/user-attachments/assets/60c4fca1-08a2-4df5-9134-2fc432b8b483" />
-<img width="668" height="365" alt="sql q2" src="https://github.com/user-attachments/assets/8e74d919-2da6-4489-892c-48d9f0ed573a" />
-<img width="674" height="349" alt="action" src="https://github.com/user-attachments/assets/632bd02c-a78b-40c4-b444-f0c50bfddd68" />
-
-4. **ML Model**  
-<img width="527" height="191" alt="ml model" src="https://github.com/user-attachments/assets/512d695d-949a-42c3-8f0a-f7d1b3cd5e43" />
 
 ---
 
