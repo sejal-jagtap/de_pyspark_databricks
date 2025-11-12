@@ -72,7 +72,7 @@ The notebook implements the following pipeline steps:
    <img width="381" height="334" alt="lazy eval 3" src="https://github.com/user-attachments/assets/5e377a0d-3562-42c1-8220-f141766a8701" />
 
 
-13. **MLlib Demo (Optional):** Linear regression predicting movie revenue from budget, popularity, runtime, and vote_average.
+12. **MLlib Demo (Optional):** Linear regression predicting movie revenue from budget, popularity, runtime, and vote_average.
 
    <img width="527" height="191" alt="ml model" src="https://github.com/user-attachments/assets/a2225475-0098-497e-aa15-a725aab6b915" />
 
